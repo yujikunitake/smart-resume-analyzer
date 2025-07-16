@@ -12,7 +12,7 @@ summarizer = pipeline(
 
 def summarize_text(text: str) -> str:
     if not text.strip():
-        return "Texto vazio, não foi possível gerar resum."
+        return "Texto vazio, não foi possível gerar resumo."
 
     if len(text) > 1000:
         text = text[:1000]
