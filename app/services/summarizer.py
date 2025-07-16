@@ -1,7 +1,11 @@
 # app/services/sumarizer.py
 from transformers import pipeline
 
-summarizer = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
+summarizer = pipeline(
+    "summarization",
+    model="sshleifer/distilbart-cnn-12-6",
+    device=-1,
+    )
 
 
 def summarize_text(text: str) -> str:

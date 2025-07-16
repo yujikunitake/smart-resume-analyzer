@@ -2,7 +2,7 @@
 from fastapi import APIRouter, UploadFile, File, Form
 from typing import List, Optional
 from uuid import UUID
-from datetime import datetime
+from datetime import datetime, timezone
 from app.services import ocr, logger, summarizer
 
 analyze_router = APIRouter()
@@ -29,7 +29,7 @@ async def analyze_files(
     log_data = {
         "request_id": str(request_id),
         "user_id": user_id,
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         "query": query,
         "resultado": results
     }
