@@ -1,6 +1,6 @@
 # app/main.py
 from fastapi import FastAPI
-from app.routers.analyze import analyze_router
+from routers.analyze import analyze_router
 
 
 app = FastAPI(
