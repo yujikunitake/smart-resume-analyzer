@@ -3,7 +3,7 @@ from fastapi import APIRouter, UploadFile, File, Form
 from typing import List, Optional
 from uuid import UUID
 from datetime import datetime
-from services import ocr, logger, summarizer
+from app.services import ocr, logger, summarizer
 
 analyze_router = APIRouter()
 

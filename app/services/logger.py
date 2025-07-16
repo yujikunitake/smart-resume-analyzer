@@ -1,6 +1,6 @@
 # app/services/logger.py
 import pymongo
-from config import MONGO_URI
+from app.config import MONGO_URI
 
 client = pymongo.MongoClient(MONGO_URI)
 db = client["resume_analyzer"]
