@@ -3,7 +3,7 @@ from fastapi import APIRouter, UploadFile, File, Form
 from typing import List, Optional
 from uuid import UUID
 from datetime import datetime
-from services import ocr, logger
+from services import ocr, logger, summarizer
 
 analyze_router = APIRouter()
 
@@ -20,7 +20,11 @@ async def analyze_files(
     for file in files:
         content = await file.read()
         extracted_text = ocr.extract_text(file.filename, content)
-        results[file.filename] = extracted_text
+        if query:
+            results[file.filename] = extracted_text
+        else:
+            summary = summarizer.summarize_text(extracted_text)
+            results[file.filename] = {"summary": summary}
 
     log_data = {
         "request_id": str(request_id),
