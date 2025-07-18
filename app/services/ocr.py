@@ -9,9 +9,6 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Inicializa o OCR em português e inglês
-reader = easyocr.Reader(['pt', 'en'])
-
 
 def preprocess_image(image_array):
     """Converte imagem para escala de cinza e redimensiona se necessário"""
@@ -23,7 +20,10 @@ def preprocess_image(image_array):
     width, height = image.size
     if width > 2000 or height > 2000:
         ratio = min(2000 / width, 2000 / height)
-        image = image.resize((int(width * ratio), int(height * ratio)), Image.Resampling.LANCZOS)  # noqa: E501
+        image = image.resize(
+            (int(width * ratio), int(height * ratio)),
+            Image.Resampling.LANCZOS
+        )
 
     return np.array(image)
 
@@ -32,6 +32,9 @@ def extract_text_from_image(image_array):
     """Executa OCR com EasyOCR em uma imagem"""
     try:
         processed_image = preprocess_image(image_array)
+
+        # Lazy load do EasyOCR
+        reader = easyocr.Reader(['pt', 'en'])
 
         result = reader.readtext(
             processed_image,
